@@ -13,6 +13,7 @@ const data = [
        ],
        vote_num:214,
        share_:"",
+       time:  null,
        domain:"https://ithelp.ithome.com.tw/questions/10141214",
     },
     {
@@ -25,6 +26,7 @@ const data = [
         ],
         vote_num:200,
         share_:"",
+        time:  null,
         domain:"https://ithelp.ithome.com.tw/questions/10141214",
      },
      {
@@ -37,6 +39,7 @@ const data = [
         ],
         vote_num:180,
         share_:"",
+        time: null ,
         domain:"https://ithelp.ithome.com.tw/questions/10141214",
      },
      {
@@ -49,6 +52,7 @@ const data = [
         ],
         vote_num:0,
         share_:"",
+        time: null,
         domain:"https://ithelp.ithome.com.tw/questions/10141214",
      },
 ];
@@ -103,7 +107,7 @@ const data = [
 // 搜尋
 
 let searchForm = document.querySelector("#search_form");
-let searchInput = document.querySelector("input");
+let searchInput = document.querySelector("#search_input");
 let searchBtn = document.querySelector("#search_btn");
 
 let cardsList = document.querySelector(".card");
@@ -113,11 +117,11 @@ let cardsList = document.querySelector(".card");
 const renderSearchCards = (keyword = '') =>{
     let renderUI = data;
 
-    renderSearchUI = renderUI.filter((post) => post.name.includes(keyword))
+    renderSearchUI = renderUI.filter((post) => post.name.includes(keyword) || post.auter.includes(keyword) )
 
     renderUI = renderSearchUI.map(
         (post) => `
-        <div class="card_box">
+        <div class="card_box" data-time="${post.time}">
                 
                 <div class="img_box">
                     <img src="${post.img}">
@@ -130,7 +134,7 @@ const renderSearchCards = (keyword = '') =>{
                 </div>
 
                 <div class="btn_box">
-                <h5>${post.date[0]}年${post.date[1]}月${post.date[2]}日</h5>
+                <h5 data-date>${post.date[0]}年${post.date[1]}月${post.date[2]}日</h5>
                     <div class="like_box">
                           <div class="like">
                             <i class="fa-regular fa-heart heart"></i>
@@ -139,7 +143,7 @@ const renderSearchCards = (keyword = '') =>{
                           
                     </div>
 
-                    <div class="share_box">
+                    <div class="share_box" id="share_box">
                           <div class="share">
                             <i class="fa-solid fa-share-from-square"></i>
                           </div>
@@ -155,8 +159,6 @@ const renderSearchCards = (keyword = '') =>{
     )
 
 
-    console.log(renderUI.length);
-
     cardsList.innerHTML = renderUI.length 
     ? renderUI.join("") 
     : `<h1>哭哭沒有東西~</h1>`;
@@ -167,8 +169,41 @@ renderSearchCards();
 
 const searchPost = (event) =>{
     event.preventDefault();
+    console.log(searchInput.value);
     renderSearchCards(searchInput.value);
 }
 
 searchBtn.addEventListener("click",searchPost);
 
+
+// var $grid = $(".grid").isotope({
+//     itemSelector : ".grid-item",
+//     layoutMode: "fitRows",
+//     getSortData:{
+//         time: function( $elem ) {
+//             return $elem.find('.date').attr('data-time');
+//           }
+//     }
+// })
+
+data.forEach((i)=>{
+    let time = [];
+    time.push(i.time)
+    console.log(time);
+})
+
+let hotBtn = document.querySelector("#hot_btn");
+let newBtn = document.querySelector("#new_btn");
+let oldBtn = document.querySelector("#old_btn");
+
+console.log(hotBtn,newBtn,oldBtn);
+
+
+const renderSortCards = () =>{
+
+    let renderSortData = data;
+
+    renderSortData = renderSortData.map((i)=>{
+
+    })
+}
